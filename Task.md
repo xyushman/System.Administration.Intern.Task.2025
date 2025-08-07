@@ -21,7 +21,7 @@ First, we'll create the server and perform essential security hardening.
     
 4. **Plan:** Select a plan that meets your needs (e.g., Basic Shared CPU with 2GB+ RAM).
 
-5. IP: IPv6 should be enabled
+5. IP: IPv6 should be enabled along with IPv4
     
 6. **Datacenter:** Choose a region close to your users.
     
