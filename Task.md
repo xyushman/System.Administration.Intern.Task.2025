@@ -1,4 +1,3 @@
-
 # Digital Ocean Server Setup with Keycloak SSO
 
 This guide provides a streamlined approach to setting up a **Digital Ocean droplet** with **Rocky Linux 10**, configuring **Keycloak** for Single Sign-On (SSO), and deploying three separate applications: **Drupal 11**, a **Django** project, and a generic **PHP** application.
@@ -20,8 +19,8 @@ First, we'll create the server and perform essential security hardening.
 3. **Operating System:** Choose **Rocky Linux 10**.
     
 4. **Plan:** Select a plan that meets your needs (e.g., Basic Shared CPU with 2GB+ RAM).
-
-5. IP: IPv6 should be enabled along with IPv4
+    
+5. **IP:** IPv6 should be enabled along with IPv4.
     
 6. **Datacenter:** Choose a region close to your users.
     
@@ -30,9 +29,9 @@ First, we'll create the server and perform essential security hardening.
 8. **Finalize:** Set a hostname and click **Create Droplet**.
     
 
-B. Initial Server Hardening:
+**B. Initial Server Hardening:**
 
-Connect to your new droplet as the root user.
+Connect to your new Droplet as the root user.
 
 ```
 ssh root@your_droplet_ip
@@ -89,7 +88,7 @@ sudo dnf update -y
 
 # Install EPEL and Remi repositories for up-to-date packages
 sudo dnf install epel-release -y
-sudo dnf install https://rpms.remirepo.net/enterprise/remi-release-10.rpm -y
+sudo dnf install [https://rpms.remirepo.net/enterprise/remi-release-10.rpm](https://rpms.remirepo.net/enterprise/remi-release-10.rpm) -y
 sudo dnf module enable php:remi-8.3 -y
 
 # Install Apache, PHP, MariaDB, Python, and other tools
@@ -118,7 +117,7 @@ sudo dnf install java-17-openjdk-devel -y
 cd /opt
 
 # Download the latest stable Keycloak (check keycloak.org/downloads for new versions)
-sudo wget https://github.com/keycloak/keycloak/releases/download/24.0.4/keycloak-24.0.4.zip
+sudo wget [https://github.com/keycloak/keycloak/releases/download/24.0.4/keycloak-24.0.4.zip](https://github.com/keycloak/keycloak/releases/download/24.0.4/keycloak-24.0.4.zip)
 sudo unzip keycloak-24.0.4.zip
 sudo mv keycloak-24.0.4 keycloak
 
@@ -128,7 +127,7 @@ sudo useradd -r -g keycloak -d /opt/keycloak -s /sbin/nologin keycloak
 sudo chown -R keycloak:keycloak /opt/keycloak
 ```
 
-B. Configure and Run Keycloak:
+**B. Configure and Run Keycloak:**
 
 For initial setup, you can run Keycloak in development mode.
 
@@ -140,9 +139,9 @@ For initial setup, you can run Keycloak in development mode.
 
 Access `http://your_droplet_ip:8080`, create an admin user, and log in to the **Administration Console**.
 
-C. Create a Systemd Service for Production:
+**C. Create a Systemd Service for Production:**
 
-Create the service file /etc/systemd/system/keycloak.service:
+Create the service file `/etc/systemd/system/keycloak.service`:
 
 ```
 [Unit]
@@ -172,7 +171,7 @@ sudo systemctl enable --now keycloak
 sudo systemctl status keycloak
 ```
 
-**Note:** For a true production setup, you should configure Keycloak to use your MariaDB database instead of the default H2 database and set up an Apache reverse proxy with SSL.
+**Note:** For a proper production setup, you should configure Keycloak to use your MariaDB database instead of the default H2 database and set up an Apache reverse proxy with SSL.
 
 ## Page 2: Application Deployment & SSO Integration
 
@@ -197,6 +196,7 @@ EXIT;
 ```
 # Install Drupal using Composer for better dependency management
 cd /var/www/
+sudo dnf install composer -y
 sudo composer create-project drupal/recommended-project drupal
 sudo chown -R apache:apache /var/www/drupal
 sudo chmod -R 755 /var/www/drupal/web
@@ -219,7 +219,7 @@ Create an Apache virtual host at `/etc/httpd/conf.d/drupal.conf`:
 </VirtualHost>
 ```
 
-Restart Apache: `sudo systemctl restart httpd`. Then, navigate to `http://your_drupal_domain.com` to complete the web installation.
+Restart Apache: `sudo systemctl restart httpd`. Then, navigate `http://your_drupal_domain.com` to complete the web installation.
 
 **C. Integrate Keycloak SSO:**
 
@@ -284,15 +284,15 @@ python manage.py createsuperuser
 deactivate
 ```
 
-C. Configure Apache as a Reverse Proxy:
+**C. Configure Apache as a Reverse Proxy:**
 
-Create /etc/httpd/conf.d/django.conf:
+Create `/etc/httpd/conf.d/django.conf`:
 
 ```
 <VirtualHost *:80>
     ServerName your_django_domain.com
-    ProxyPass / http://127.0.0.1:8000/
-    ProxyPassReverse / http://127.0.0.1:8000/
+    ProxyPass / [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+    ProxyPassReverse / [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 </VirtualHost>
 ```
 
@@ -339,6 +339,7 @@ For this to work, you'll run Gunicorn listening on port 8000. Create a `systemd`
     ```
     # urls.py
     from django.urls import path, include
+    from django.contrib import admin
     
     urlpatterns = [
         path('admin/', admin.site.urls),
@@ -350,11 +351,11 @@ For this to work, you'll run Gunicorn listening on port 8000. Create a `systemd`
 
 Restart Gunicorn and Apache to apply changes.
 
-## Page 3: PHP Application & Documentation Strategy
+## Page 3: PHP Application & Final Submission
 
 ### 1. Generic PHP Project Setup
 
-A. Deploy Application:
+**A. Deploy Application:**
 
 Place your PHP application files in a dedicated directory.
 
@@ -365,9 +366,9 @@ sudo chown -R apache:apache /var/www/php_app
 sudo chmod -R 755 /var/www/php_app
 ```
 
-B. Configure Apache:
+**B. Configure Apache:**
 
-Create /etc/httpd/conf.d/php_app.conf:
+Create `/etc/httpd/conf.d/php_app.conf`:
 
 ```
 <VirtualHost *:80>
@@ -402,14 +403,16 @@ We'll use a standard OIDC client library for PHP.
         
     - Copy the **Client Secret**.
         
-3. Example PHP Code:
+3. **Example PHP Code:**
     
-    Create a file login.php to initiate the SSO flow:
+    Create a file `login.php` To initiate the SSO flow:
     
     ```
     <?php
     require 'vendor/autoload.php';
     use Jumbojett\OpenIDConnectClient;
+    
+    session_start();
     
     $oidc = new OpenIDConnectClient(
         'http://your_droplet_ip:8080/realms/master', // Keycloak provider URL
@@ -428,7 +431,7 @@ We'll use a standard OIDC client library for PHP.
     exit();
     ```
     
-    Create a `profile.php` to display user data:
+    Create a `profile.php` To display user data:
     
     ```
     <?php
@@ -444,59 +447,41 @@ We'll use a standard OIDC client library for PHP.
     ```
     
 
-### 3. Documentation & Version Control Strategy
+### 3. Submission and Evaluation
 
-**A. Hosting Documentation on GitHub:**
+This section clarifies the submission process and how your work will be evaluated.
 
-1. **Create Repository:** Create a new public repository on GitHub (e.g., `my-internship-tasks`).
+**A. Evaluation Criteria**
+
+Your task will be judged based on the following criteria:
+
+- **Correctness & Functionality:** The entire setup must be fully functional. This includes the Digital Ocean droplet, a secure server environment, a working Keycloak instance, and all three applications (Drupal, Django, and PHP) correctly integrated with Keycloak SSO. The evaluation team will test the SSO flow on each application.
     
-2. **Use Markdown:** Write your documentation in Markdown (`.md`) files. This is simple, clean, and renders beautifully on GitHub.
+- **Documentation Quality:** The documentation must be clear, comprehensive, and easy to follow.
     
-3. **Structure:** Organize your documentation logically.
+- **Screenshots as Proof:** You must include screenshots in your documentation to visually confirm key steps, such as firewall status, service status, Keycloak client configuration, and successful SSO logins on each application.
     
-    ```
-    my-internship-tasks/
-    ├── README.md              # Project overview
-    ├── 01-server-setup.md     # Droplet and hardening
-    ├── 02-keycloak-setup.md   # Keycloak details
-    ├── 03-drupal-integration.md
-    └── 04-django-integration.md
-    ```
-    
-4. **Commit and Push:** Regularly commit your changes and push them to GitHub. `git add .`, `git commit -m "Add Drupal setup guide"`, `git push`.
+- **Live Demo:** A live, publicly accessible environment is required for evaluation.
     
 
-B. Ensuring Daily GitHub Commits:
+**B. Mode of Submission**
 
-To maintain a consistent commit history for project tracking, you can use a GitHub Actions workflow to create an empty commit each day.
+- You must create a public repository on GitHub.
+    
+- The final submission is the URL to this GitHub repository.
+    
+- The repository's `README.md` file should serve as the main project page, containing an overview, a link to the live Droplet IP/domains, and the detailed documentation files for each setup part.
+    
 
-Create the file `.github/workflows/daily-commit.yml` in your repository:
+**C. Required Deliverables**
 
-```
-name: Daily Empty Commit
+The **only deliverable** is the URL to your public GitHub repository. This repository must contain:
 
-on:
-  schedule:
-    # Runs every day at a specific time (e.g., 5:30 UTC)
-    - cron: '30 5 * * *'
-  workflow_dispatch: # Allows manual triggering from the Actions tab
+1. **Complete Documentation:** A set of Markdown (`.md`) files detailing every step you took, from server creation to final application configuration. Structure your documentation logically (e.g., `01-server-setup.md`, `02-keycloak.md`, etc.).
+    
+2. **Screenshots:** Embedded directly within your documentation files.
+    
+3. **Live URLs:** The IP address of your Digital Ocean droplet and the Drupal, Django, and PHP application domains must be clearly listed in the `README.md` file for the evaluation team to access and test.
+    
 
-jobs:
-  daily_commit:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Configure Git
-        run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "actions@github.com"
-
-      - name: Create empty commit and push
-        run: |
-          git commit --allow-empty -m "Automated daily commit to track activity"
-          git push
-```
-
-Commit this file to your repository. This workflow will now run automatically, helping you maintain a visible activity streak.
+No video demonstration or presentation is required. The live, functional setup serves as the primary proof of your work.
