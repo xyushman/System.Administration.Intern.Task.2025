@@ -18,7 +18,7 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 
-![alt text](image-28.png)
+![alt text](images/image-28.png)
 
 ### Step 2: Create Django Project Directory
 
@@ -68,8 +68,8 @@ python manage.py createsuperuser
 # Deactivate virtual environment
 deactivate
 ```
-![alt text](image-29.png)
-![alt text](image-30.png)
+![alt text](images/image-29.png)
+![alt text](images/image-30.png)
 
 ## Django Configuration
 
@@ -195,7 +195,7 @@ sudo systemctl enable --now gunicorn
 sudo systemctl status gunicorn
 ```
 
-![alt text](image-31.png)
+![alt text](images/image-31.png)
 
 ## Apache Reverse Proxy Configuration
 

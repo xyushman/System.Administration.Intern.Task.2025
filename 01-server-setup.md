@@ -5,22 +5,22 @@
 ### Step 1: Create the Droplet
 1. Logged into Digital Ocean control panel
 2. Created → Droplets
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 3. Selected **Rocky Linux 10** as operating system
-![alt text](image-2.png)
+![alt text](images/image-2.png)
 4. Chose **Basic Shared CPU** plan with:
    - 2GB RAM
    - 1 vCPU
    - 50GB SSD Disk
    - ($12/month)
 5. Selected **SFO2** region for optimal performance
-![alt text](image-3.png)
+![alt text](images/image-3.png)
 6. Enabled both **IPv4** and **IPv6** networking
 7. Added SSH key for secure authentication
-![alt text](image-4.png)
+![alt text](images/image-4.png)
 8. Set hostname: `xyushman`
 9. Created droplet
-![alt text](image.png)
+![alt text](images/image.png)
 
 ### Step 2: Initial Server Hardening
 
@@ -28,7 +28,7 @@ Connected to the droplet as root user:
 ```bash
 ssh root@167.172.205.191
 ```
-![alt text](image-5.png)
+![alt text](images/image-5.png)
 Created a new user and granted administrative privileges:
 ```bash
 # Create the user
@@ -60,7 +60,7 @@ Logged out and back in as the new user:
 exit
 ssh xyushman@167.172.205.191
 ```
-![alt text](image-6.png)
+![alt text](images/image-6.png)
 
 ### Step 3: Firewall Configuration
 
@@ -87,7 +87,7 @@ firewall-cmd --reload
 firewall-cmd --list-all
 ```
 
-![alt text](image-7.png)
+![alt text](images/image-7.png)
 
 ### Step 4: System Updates & Core Components Installation
 
@@ -122,7 +122,7 @@ During MariaDB secure installation, used these options:
 6. Remove test database and access to it: y
 7. Reload privilege tables: y
 
-![alt text](image-13.png)
+![alt text](images/image-13.png)
 ### Step 5: Java Installation
 
 Installed Java for Keycloak:

@@ -23,7 +23,7 @@ cd /var/www/php_app
 composer require jumbojett/openid-connect-php
 ```
 
-![alt text](image-32.png)
+![alt text](images/image-32.png)
 
 ### Step 3: Create PHP Application Files
 
@@ -61,7 +61,7 @@ exit();
 ?>
 ```
 
-![alt text](image-33.png)
+![alt text](images/image-33.png)
 
 **profile.php** - Displays user information after successful authentication:
 ```php

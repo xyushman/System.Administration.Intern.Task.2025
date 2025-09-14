@@ -36,7 +36,7 @@ sudo chown -R keycloak:keycloak /opt/keycloak
 
 ```
 
-![alt text](image-11.png)
+![alt text](images/image-11.png)
 
 ### Step 3: Initial Keycloak Setup
 
@@ -93,7 +93,7 @@ sudo systemctl status keycloak
 
 ```
 
-![alt text](image-12.png)
+![alt text](images/image-12.png)
 
 ### Step 5: Verify Keycloak Installation
 
@@ -118,7 +118,7 @@ Accessed the Keycloak Admin Console:
 - Username: admin
 - Password: q4tdqs7a
 
-![alt text](image-19.png)
+![alt text](images/image-19.png)
 
 ### Step 7: Configure Clients for Applications
 
@@ -145,7 +145,7 @@ Created three clients for the different applications:
 - **Access Type**: confidential
 - **Valid Redirect URIs**: http://167.172.205.191/php/login.php
 - **Client Secret**: Retrieved from Credentials tab
-![alt text](image-18.png)
+![alt text](images/image-18.png)
 
 ### Step 8: Realm Configuration
 

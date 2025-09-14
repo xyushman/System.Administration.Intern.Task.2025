@@ -17,7 +17,7 @@ GRANT ALL PRIVILEGES ON drupaldb.* TO 'drupaluser'@'localhost';
 FLUSH PRIVILEGES;
 EXIT;
 ```
-![alt text](image-20.png)
+![alt text](images/image-20.png)
 ### Step 2: Install Drupal Using Composer
 
 ```bash
@@ -34,7 +34,7 @@ sudo composer create-project drupal/recommended-project drupal
 sudo chown -R apache:apache /var/www/drupal
 sudo chmod -R 755 /var/www/drupal/web
 ```
-![alt text](image-23.png)
+![alt text](images/image-23.png)
 ### Step 3: Configure Apache Virtual Host
 
 Created Apache configuration for Drupal:
@@ -72,7 +72,7 @@ Accessed Drupal installation wizard at `http://167.172.205.191` and completed th
 2. **Choose profile**: Standard
 3. **Verify requirements**: All requirements met
 
-![alt text](image-24.png)
+![alt text](images/image-24.png)
 4. **Set up database**:
    - Database type: MySQL/MariaDB
    - Database name: drupaldb
@@ -87,7 +87,7 @@ Accessed Drupal installation wizard at `http://167.172.205.191` and completed th
    - Default country: United States
    - Default time zone: UTC
 
-![alt text](image-25.png)
+![alt text](images/image-25.png)
 ### Step 5: File System Configuration
 
 Set up proper file permissions for Drupal:
@@ -136,7 +136,7 @@ composer require drupal/keycloak:2.2.x-dev --dev --with-all-dependencies
 ### Step 8: Configure Keycloak Module
 
 1. Navigated to **Configuration > People > OpenID Connect > Clients** (`/admin/config/people/oidc_connect/clients`)
-![alt text](image-26.png)
+![alt text](images/image-26.png)
 2. Clicked **Edit** on the Keycloak client
 3. Configured the following settings:
    - **Name**: Keycloak
@@ -167,7 +167,7 @@ In the Keycloak Admin Console (`http://167.172.205.191:8080`):
 3. Copied the **Client Secret** from the **Credentials** tab
 4. Updated the Drupal Keycloak module configuration with the client secret
 
-![alt text](image-27.png)
+![alt text](images/image-27.png)
 ## Testing and Verification
 
 ### Step 10: Test SSO Integration
